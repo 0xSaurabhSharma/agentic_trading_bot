@@ -1,6 +1,6 @@
 import sys
 
-class TradingBotException(Exception):
+class TradingAgentException(Exception):
     
     def __init__(self, error_message, error_details: sys):
         self.error_message = error_message
@@ -11,3 +11,12 @@ class TradingBotException(Exception):
     
     def __str__(self):
         return f"Error occured in file_name: {self.file_name}, on line: {self.lineon}\nError Message: {self.error_message}"
+    
+    
+if __name__ == "__main__":
+    try: 
+        a = 1/0
+        print("It will not be executed...")
+        
+    except Exception as e:
+        raise TradingAgentException(e, sys)

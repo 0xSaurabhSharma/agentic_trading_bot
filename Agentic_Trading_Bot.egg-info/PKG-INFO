@@ -1,0 +1,15 @@
+Metadata-Version: 2.4
+Name: Agentic_Trading_Bot
+Version: 0.0.1
+Author: Saurabh Sharma
+Author-email: dm.sharmasaurabh@gmail.com
+Requires-Dist: langchain
+Requires-Dist: langchain_core
+Requires-Dist: langchain_community
+Requires-Dist: lancedb
+Requires-Dist: tavily-python
+Requires-Dist: langgraph
+Requires-Dist: polygon
+Dynamic: author
+Dynamic: author-email
+Dynamic: requires-dist

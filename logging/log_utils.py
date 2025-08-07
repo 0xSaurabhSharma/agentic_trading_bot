@@ -1,6 +1,8 @@
+# logger.py
+
 import logging
 import os 
-import datetime 
+from datetime import datetime 
 
 LOG_FILE = f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"
 
@@ -15,3 +17,5 @@ logging.basicConfig(
     format="[ %(asctime)s] %(lineno)d %(name)s - %(levelname)s - %(message)s",
     level=logging.INFO
 )
+
+logger = logging.getLogger("Agentic_Trading_Bot")

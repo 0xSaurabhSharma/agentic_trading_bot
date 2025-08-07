@@ -4,3 +4,19 @@ langchain_core
 tavily-python
 polygon
 lancedb
+langchain_groq 
+langchain_google_genai 
+streamlit 
+fastapi[all]
+uvicorn
+langchain_pinecone
+
+
+
+
+
+
+
+
+
+-e .
