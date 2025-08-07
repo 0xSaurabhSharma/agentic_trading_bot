@@ -10,7 +10,7 @@ from pinecone import ServerlessSpec, Pinecone
 from uuid import uuid4
 import sys
 
-from exception.exceptions import TradingBotException
+from exception.exceptions import TradingAgentException
 from utils.model_loaders import ModelLoader
 from utils.config_loaders import load_config
 
@@ -27,16 +27,13 @@ class DataIngestion:
             self._load_env_variables()
             self.config = load_config()
         except Exception as e:
-            raise TradingBotException(e, sys)
+            raise TradingAgentException(e, sys)
 
     def _load_env_variables(self):
         try:
             load_dotenv()
 
-            required_vars = [
-                "GOOGLE_API_KEY",
-                "PINECONE_API_KEY"
-            ]
+            required_vars = ["GOOGLE_API_KEY", "PINECONE_API_KEY"]
 
             missing_vars = [var for var in required_vars if os.getenv(var) is None]
             if missing_vars:
@@ -45,7 +42,7 @@ class DataIngestion:
             self.google_api_key = os.getenv("GOOGLE_API_KEY")
             self.pinecone_api_key = os.getenv("PINECONE_API_KEY")
         except Exception as e:
-            raise TradingBotException(e, sys)
+            raise TradingAgentException(e, sys)
 
     def load_documents(self, uploaded_files) -> List[Document]:
         try:
@@ -54,7 +51,9 @@ class DataIngestion:
                 file_ext = os.path.splitext(uploaded_file.filename)[1].lower()
                 suffix = file_ext if file_ext in [".pdf", ".docx"] else ".tmp"
 
-                with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as temp_file:
+                with tempfile.NamedTemporaryFile(
+                    delete=False, suffix=suffix
+                ) as temp_file:
                     temp_file.write(uploaded_file.file.read())
                     temp_path = temp_file.name
 
@@ -68,14 +67,12 @@ class DataIngestion:
                     print(f"Unsupported file type: {uploaded_file.filename}")
             return documents
         except Exception as e:
-            raise TradingBotException(e, sys)
+            raise TradingAgentException(e, sys)
 
     def store_in_vector_db(self, documents: List[Document]):
         try:
             text_splitter = RecursiveCharacterTextSplitter(
-                chunk_size=1000,
-                chunk_overlap=200,
-                length_function=len
+                chunk_size=1000, chunk_overlap=200, length_function=len
             )
             documents = text_splitter.split_documents(documents)
 
@@ -91,12 +88,14 @@ class DataIngestion:
                 )
 
             index = pinecone_client.Index(index_name)
-            vector_store = PineconeVectorStore(index=index, embedding=self.model_loader.load_embeddings())
+            vector_store = PineconeVectorStore(
+                index=index, embedding=self.model_loader.load_embeddings()
+            )
             uuids = [str(uuid4()) for _ in range(len(documents))]
 
             vector_store.add_documents(documents=documents, ids=uuids)
         except Exception as e:
-            raise TradingBotException(e, sys)
+            raise TradingAgentException(e, sys)
 
     def run_pipeline(self, uploaded_files):
         try:
@@ -106,7 +105,8 @@ class DataIngestion:
                 return
             self.store_in_vector_db(documents)
         except Exception as e:
-            raise TradingBotException(e, sys)
+            raise TradingAgentException(e, sys)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     pass

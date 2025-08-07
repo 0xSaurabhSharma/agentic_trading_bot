@@ -41,7 +41,7 @@ def retriever_tool(question):
 
 
 tavilytool = TavilySearchResults(
-    max_results=config["tools"]["tavily"]["max_results"],
+    max_results=config["tools"]["tavily"]["max_result"],
     search_depth="advanced",
     include_answer=True,
     include_raw_content=True,

@@ -20,7 +20,8 @@ class ModelLoader:
         Validate necessary environment variables.
         """
         required_var = ["GOOGLE_API_KEY", "GROQ_API_KEY"]
-        self.groq_api_key = os.getenv("GROQ_API_KEY")
+        # self.groq_api_key = os.getenv("GROQ_API_KEY")
+        self.google_api_key = os.getenv("GOOGLE_API_KEY")
         missing_var = [var for var in required_var if not os.getenv(var)]
         if missing_var:
             raise EnvironmentError(f"Missing environment variables: {missing_var}")
@@ -39,7 +40,9 @@ class ModelLoader:
         Load and return the LLM model.
         """
         print("Loading LLM...")
-        model_name = self.config["llm"]["groq"]["model_name"]
-        llm = ChatGroq(model=model_name, api_key=self.groq_api_key)
+        # model_name = self.config["llm"]["groq"]["model_name"]
+        # llm = ChatGroq(model=model_name, api_key=self.groq_api_key)
+        model_name = self.config["llm"]["google"]["model_name"]
+        llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash-001")
         print(llm.invoke("Hi"))
         return llm
