@@ -7,10 +7,12 @@ Agentic_Trading_Bot.egg-info/requires.txt
 Agentic_Trading_Bot.egg-info/top_level.txt
 agents/__init__.py
 agents/workflow.py
+data_ingestion/__init__.py
+data_ingestion/ingestion_pipeline.py
 exception/__init__.py
 exception/exceptions.py
-logging/__init__.py
-logging/log_utils.py
+logger/__init__.py
+logger/log_utils.py
 models/__init__.py
 models/model.py
 prompt_lib/__init__.py
@@ -19,4 +21,4 @@ toolkit/__init__.py
 toolkit/tools.py
 utils/__init__.py
 utils/config_loaders.py
-utils/model_loders.py
+utils/model_loaders.py

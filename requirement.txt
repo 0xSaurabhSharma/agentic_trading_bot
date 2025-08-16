@@ -1,7 +1,11 @@
 langchain
 langchain_community
 langchain_core
+langchain_text_splitters
 tavily-python
+langchain_pinecone
+pinecone
+langgraph
 polygon
 lancedb
 langchain_groq 
@@ -10,6 +14,7 @@ streamlit
 fastapi[all]
 uvicorn
 langchain_pinecone
+pydantic
 
 
 

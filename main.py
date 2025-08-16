@@ -5,8 +5,17 @@ from starlette.responses import JSONResponse
 from data_ingestion.ingestion_pipeline import DataIngestion  
 from agents.workflow import GraphBuilder  
 from models.model import *
+import os 
+from dotenv import load_dotenv
 
-app = FastAPI()
+load_dotenv()
+
+os.environ["LANGCHAIN_TRACING_V2"] = "true"
+os.environ["LANGCHAIN_ENDPOINT"] = "https://api.smith.langchain.com"
+os.environ["LANGCHAIN_API_KEY"] = os.getenv("LANGSMITH_API_KEY")
+os.environ["LANGCHAIN_PROJECT"] = os.getenv("LANGSMITH_PROJECT")
+
+app = FastAPI(title="Agentic Trading Bot")
 
 app.add_middleware(
     CORSMiddleware,
